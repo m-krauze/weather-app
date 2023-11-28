@@ -1,3 +1,26 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+  "plugins": [
+    "@stylistic"
+  ],
+  "rules": {
+    "object-curly-spacing": ["error", "always"],
+    "@stylistic/no-trailing-spaces": "error",
+    "semi": "error",
+    "react/jsx-wrap-multilines": ["error", {
+      "declaration": "parens",
+      "assignment": "parens",
+      "return": "parens",
+      "arrow": "parens",
+      "condition": "ignore",
+      "logical": "ignore",
+      "prop": "ignore"
+    }],
+    "react/jsx-indent": [2, 2, {"indentLogicalExpressions": true}]
+  }
 }
+
