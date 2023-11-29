@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { openweatherApiPath } from "@/constants/apiPaths";
 
-interface Location {
+export interface Location {
   name: string;
   local_names: {
     [name: string]: string
@@ -8,14 +9,21 @@ interface Location {
   lat: number,
   lon: number,
   country: string,
-  state: string
+  state?: string
+}
+
+type GetLocationListPayload = string;
+
+interface GetReverseLocationListPayload {
+  lat: number;
+  lon: number
 }
 
 export const locationApi = createApi({
   reducerPath: "locationApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "api/openweather/geo/1.0/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `http://localhost:3000/${openweatherApiPath}/geo/1.0/` }),
   endpoints: (build) => ({
-    getLocationList: build.query<Location[], string>({
+    getLocationList: build.query<Location[], GetLocationListPayload>({
       query: (locationName) => ({
         url: `direct`,
         params: {
@@ -23,8 +31,14 @@ export const locationApi = createApi({
           limit: 5
         }
       }),
+    }),
+    getReverseLocationList: build.query<Location[], GetReverseLocationListPayload>({
+      query: (locationParams) => ({
+        url: `reverse`,
+        params: locationParams
+      }),
     })
   })
 });
 
-export const { useGetLocationListQuery } = locationApi;
+export const { useGetLocationListQuery, useGetReverseLocationListQuery } = locationApi;
