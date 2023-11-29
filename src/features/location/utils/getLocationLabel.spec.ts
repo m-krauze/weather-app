@@ -3,7 +3,7 @@ import { getLocationLabel } from "@/features/location/utils/getLocationLabel";
 
 describe("getLocationLabel", () => {
   it("creates location label", () => {
-    const mockedLockation: Location = {
+    const mockedLocation: Location = {
       name: "A Location",
       country: "PT",
       local_names: { pl: "Portugalia" },
@@ -12,6 +12,6 @@ describe("getLocationLabel", () => {
       lon: 12
     };
 
-    expect(getLocationLabel(mockedLockation)).toBe("A Location, PT, Some state");
+    expect(getLocationLabel(mockedLocation)).toBe("A Location, PT, Some state");
   });
 });

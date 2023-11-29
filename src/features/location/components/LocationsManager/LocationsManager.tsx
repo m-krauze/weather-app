@@ -1,14 +1,15 @@
 import { LocationSearch } from "@/features/location/components/LocationSearch/LocationSearch";
 import { useWebGeolocation } from "@/features/location/hooks/useWebGeolocation";
 import { getLocationId } from "@/features/location/utils/getLocationId";
-import { getLocationLabel } from "@/features/location/utils/getLocationLabel";
 import { useUserLocationStorage } from "@/features/location/hooks/useUserLocationStorage";
-
+import { getLocationSlug } from "@/features/location/utils/getLocationSlug";
+import Link from "next/link";
 
 
 export function LocationsManager() {
   const { webGeolocation, isLoading: isWebGeolocationLoading } = useWebGeolocation();
   const { locations, addLocation } = useUserLocationStorage();
+
   return (
     <div>
       <h2>Add a City</h2>
@@ -32,7 +33,9 @@ export function LocationsManager() {
           <ul>
             {locations.map((userLocation) => (
               <li key={`ml_${getLocationId(userLocation)}`}>
-                {userLocation.name}
+                <Link href={`location/${getLocationSlug(userLocation)}`}>
+                  {userLocation.name}
+                </Link>
               </li>
             ))}
           </ul>

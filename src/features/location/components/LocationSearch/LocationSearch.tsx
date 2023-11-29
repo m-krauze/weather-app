@@ -1,6 +1,6 @@
 import Select from "react-select";
 import { Location, useGetLocationListQuery } from "@/features/location/api/location.api";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { getLocationId } from "@/features/location/utils/getLocationId";
 import { getLocationLabel } from "@/features/location/utils/getLocationLabel";
 
@@ -34,9 +34,12 @@ export function LocationSearch(props: LocationSearchProps) {
     });
   }
 
+  const componentId = useId();
+
   return (
     <Select
-      instanceId="location-search"
+      id={componentId}
+      instanceId={componentId}
       placeholder={placeholder}
       value={selectedOption}
       options={locationOptions}
@@ -44,9 +47,10 @@ export function LocationSearch(props: LocationSearchProps) {
         return true;
       }}
       onChange={(newOption) => {
+        if (onSelect && newOption) {
+          const apiLocations = data || [];
+          const allLocations = webGeolocation ? [...apiLocations, webGeolocation] : apiLocations;
 
-        if (onSelect && data && newOption) {
-          const allLocations = webGeolocation ? [...data, webGeolocation] : data;
           const newLocation = allLocations.find((location) => {
             const locationId = getLocationId(location);
             return locationId === newOption.value;
