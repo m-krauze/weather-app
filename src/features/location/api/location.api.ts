@@ -23,6 +23,7 @@ interface GetReverseLocationListPayload {
 export const locationApi = createApi({
   reducerPath: "locationApi",
   baseQuery: fetchBaseQuery({ baseUrl: `${universalEnvs.appDomain}/${openweatherApiPath}/geo/1.0/` }),
+  keepUnusedDataFor: 300,
   endpoints: (build) => ({
     getLocationList: build.query<Location[], GetLocationListPayload>({
       query: (locationName) => ({

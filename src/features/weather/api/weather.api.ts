@@ -56,6 +56,7 @@ export interface GetWeatherPayload {
 export const weatherApi = createApi({
   reducerPath: "weatherApi",
   baseQuery: fetchBaseQuery({ baseUrl: `${universalEnvs.appDomain}/${openweatherApiPath}/data/2.5/` }),
+  keepUnusedDataFor: 300,
   endpoints: (build) => ({
     getCurrentWeather: build.query<CurrentWeather, GetWeatherPayload>({
       query: ({ lat, lon }) => ({
