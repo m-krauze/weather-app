@@ -1,8 +1,19 @@
-import { fireEvent, getByText, render, waitFor, screen, getByTestId, within } from "@testing-library/react";
+import { fireEvent, waitFor, screen, getByTestId, within } from "@testing-library/react";
 import { LocationsManager } from "@/features/location/components/LocationsManager/LocationsManager";
 import { renderWithProviders } from "@/utils/testUtils";
-import selectEvent from "react-select-event";
 import { mswServer } from "@/mocks/mswServer";
+
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      route: "/",
+      pathname: "",
+      query: "",
+      asPath: "",
+      push: jest.fn()
+    };
+  },
+}));
 
 beforeAll(() => mswServer.listen());
 afterEach(() => mswServer.resetHandlers());

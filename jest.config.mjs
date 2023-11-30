@@ -10,6 +10,7 @@ const config = {
   testEnvironmentOptions: {
     customExportConditions: [''],
   },
+  moduleNameMapper:{"^uuid$": "uuid"},
   setupFiles: ['./jest.polyfills.js'],
 }
 
