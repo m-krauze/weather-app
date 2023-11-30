@@ -7,11 +7,14 @@ import Link from "next/link";
 import { addNotification } from "@/features/notification/notification.slice";
 import { getLocationLabel } from "@/features/location/utils/getLocationLabel";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useRouter } from "next/router";
 
 export function LocationsManager() {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
   const { webGeolocation, isLoading: isWebGeolocationLoading } = useWebGeolocation();
   const { locations, addLocation } = useUserLocationStorage();
-  const dispatch = useAppDispatch();
 
   return (
     <div className="grow flex flex-col gap-8 p-4 max-w-screen-lg">
@@ -36,6 +39,7 @@ export function LocationsManager() {
 
                 if (newLocation && !isDuplicate) {
                   addLocation(newLocation);
+                  router.push(`/location/${getLocationSlug(newLocation)}`);
                 }
               }}
             />
