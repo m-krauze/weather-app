@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { openweatherApiPath } from "@/constants/apiPaths";
 import { universalEnvs } from "@/utils/universalEnvs";
 
-interface CurrentWeather {
+export interface CurrentWeather {
   dt: number;
   weather: {
     id: number,
@@ -18,8 +18,13 @@ interface CurrentWeather {
   }
   visibility:number;
   rain?: {
-    "1h": number
+    "1h"?: number;
+    "3h"?: number
   },
+  snow?: {
+    "1h"?: number;
+    "3h"?: number
+  }
   clouds: {
     all: number
   };
@@ -27,15 +32,20 @@ interface CurrentWeather {
     sunrise: number,
     sunset: number,
   }
+  timezone: number
 }
 
-interface DailyWeatherData {
+export interface DailyWeatherData {
+  city: {
+    timezone: number;
+  };
   list: {
     dt: number;
+    dt_txt: string;
     main: {
       temp: number
     }
-  }[]
+  }[];
 }
 
 export interface GetWeatherPayload {
@@ -52,7 +62,8 @@ export const weatherApi = createApi({
         url: `weather`,
         params: {
           lat,
-          lon
+          lon,
+          units: "metric"
         }
       }),
     }),
@@ -61,7 +72,8 @@ export const weatherApi = createApi({
         url: 'forecast',
         params: {
           lat,
-          lon
+          lon,
+          units: "metric"
         }
       })
     })

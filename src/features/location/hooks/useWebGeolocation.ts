@@ -15,6 +15,7 @@ export function useWebGeolocation() {
   useEffect(() => {
     if (navigator.geolocation) {
       setIsLoading(true);
+
       navigator.geolocation.getCurrentPosition((pos) => {
         setIsLoading(false);
         setGeolocation({
@@ -22,7 +23,6 @@ export function useWebGeolocation() {
           lon: pos.coords.longitude
         });
       });
-      //TODO maybe error handling notification
     }
   }, []);
 

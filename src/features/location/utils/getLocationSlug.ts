@@ -5,5 +5,13 @@ export function getLocationSlug(location: Location) {
     .replace(/[^\w ]+/g, "")
     .replace(/ +/g, "-");
 
-  return `${slugName}-${location.lat}-${location.lon}`;
+  return `${slugName}-${getParamText(location.lat)}-${getParamText(location.lon)}`;
+}
+
+function getParamText(param: number) {
+  if (param < 0) {
+    return `m${param * -1}`;
+  }
+
+  return param;
 }

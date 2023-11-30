@@ -62,6 +62,9 @@ export function LocationSearch(props: LocationSearchProps) {
       onInputChange={(newValue) => {
         setInputValue(newValue);
       }}
+      classNames={{
+        container: () => "w-full",
+      }}
     />
   );
 }
