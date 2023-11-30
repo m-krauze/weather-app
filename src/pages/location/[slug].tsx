@@ -48,7 +48,7 @@ export default function LocationPage() {
               location={locationList[0]}
               currentWeather={currentWeather}
             />
-            <div className="p-4 grow flex flex-col gap-12">
+            <div className="p-4 grow flex flex-col gap-12 items-center">
               <ul className="list-none flex justify-center flex-wrap gap-8">
                 <ListCard>
                   <CloudsInfo clouds={currentWeather.clouds} />
@@ -67,7 +67,7 @@ export default function LocationPage() {
                   </ListCard>
                 )}
               </ul>
-              <div className="card bg-base-100 p-4 shadow max-w-screen-md">
+              <div className="card bg-base-100 p-4 shadow max-w-screen-md w-full">
                 <h3 className="text-center font-bold text-xl">Forecast</h3>
                 <div className="divider" />
                 <table className="table">
